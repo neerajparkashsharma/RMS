@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b30f8f18bb1d4f50b153227043d9a6c6" Name="Diagram1" ZoomLevel="74">
+        <EntityTypeShape EntityType="RestaurantManagementSystemModel.FoodItem" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="RestaurantManagementSystemModel.Order" Width="1.5" PointX="0.75" PointY="1.25" />
+        <EntityTypeShape EntityType="RestaurantManagementSystemModel.OrderDetail" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="RestaurantManagementSystemModel.Role" Width="1.5" PointX="5.75" PointY="1.25" />
+        <EntityTypeShape EntityType="RestaurantManagementSystemModel.sysdiagram" Width="1.5" PointX="2.75" PointY="5.75" />
+        <EntityTypeShape EntityType="RestaurantManagementSystemModel.User" Width="1.5" PointX="8" PointY="1" />
+        <AssociationConnector Association="RestaurantManagementSystemModel.FK_OrderDetails_FoodItem" />
+        <AssociationConnector Association="RestaurantManagementSystemModel.FK_OrderDetails_Order" />
+        <AssociationConnector Association="RestaurantManagementSystemModel.FK_Users_Role" />
+        <EntityTypeShape EntityType="RestaurantManagementSystemModel.Category" Width="1.5" PointX="0.75" PointY="10" />
+        <AssociationConnector Association="RestaurantManagementSystemModel.FK_FoodItem_Category" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

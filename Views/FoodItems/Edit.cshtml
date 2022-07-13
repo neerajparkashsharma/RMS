@@ -1,0 +1,108 @@
+﻿@model RMS.Models.FoodItem
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<style>
+
+    .form-control {
+        width: 300px;
+    }
+</style>
+
+
+<center><h2 style="margin-top:20px;">Edit Food Details </h2></center>
+
+
+@using (Html.BeginForm("Edit", "FoodItems", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+<center>
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Description, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Description, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CategoryId, "Category", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("CategoryId", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.CategoryId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <label>PREVIOUS IMAGE</label><br />
+        <img src="~/Images/@Html.DisplayFor(model => model.Image)" style="border-radius:10px; width:20%; height:50%; " />
+
+     
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Image, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Image, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Image, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+
+            <div class="col-md-10">
+                <span class="text-gray-700 dark:text-gray-400">Update Image</span>
+                <br />
+                <input type="file" name="file" id="file" class="btn btn-primary" accept=".jpg, .jpeg, .png" style="margin-top:20px" />
+
+
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+                <div class="col-md-offset-2 col-md-10" style="margin-top:20px;">
+                    <a href="/FoodItems/"> <input type="button" value="Back to List" class="btn btn-default" /></a>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    @Html.TextBoxFor(m => m.CreatedDate, "{0:yyyy/MM/dd}", new { @class = "hidden" })
+
+    @Html.TextBoxFor(m => m.CreatedBy, new { @class = "hidden" })
+
+    @Html.TextBoxFor(m => m.IsActive, new { @class = "hidden" }) @*@Html.EditorFor(model => model.CreatedDate, new { htmlAttributes = new { @Value = Model.CreatedDate.ToString("yyyy/MM/dd"), @class = "form-control" } })*@
+</center>
+        }
+
+       

@@ -1,0 +1,144 @@
+﻿
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<div class="page section-header text-center">
+    <div class="page-title">
+        <div class="wrapper"><h1 class="page-width">Shopping Cart</h1></div>
+    </div>
+</div>
+<!--End Page Title-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12 main-col">
+        
+            <form action="#" method="post" class="cart style2">
+                <table>
+                    <thead class="cart__row cart__header">
+                        <tr>
+                            <th colspan="2" class="text-center">Product</th>
+                            <th class="text-center">Price</th>
+                            <th class="text-center">Quantity</th>
+                            <th class="text-right">Total</th>
+                            <th class="action">&nbsp;</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @{
+                            float subtotal = 0;
+                        }
+                        @if (Session["Cart"] != null)
+                        {
+
+
+
+                            foreach (var item in Session["Cart"] as List<Cart>)
+                            {
+
+                                subtotal = @Convert.ToSingle(@subtotal + item.bill);
+
+                                <tr class="cart__row border-bottom line1 cart-flex border-top">
+
+                                    <td class="cart__image-wrapper cart-flex-item">
+                                        <input type="hidden" value="@item.FoodItemId" class="PrId" />
+                                        <a href="#"><img class="cart__image" src="/Images/@item.Image" alt="Image Iteml"></a>
+                                    </td>
+                                    <td class="cart__meta small--text-left cart-flex-item">
+                                        <div class="list-view-item__title">
+                                            <a href="#">@item.Name </a>
+                                        </div>
+
+
+                                    </td>
+                                    <td class="cart__price-wrapper cart-flex-item">
+                                        <span class="money" id="@("Price"+item.FoodItemId)" data-hidden="true" data-price="@item.Price">Rs. @item.Price</span>
+                                    </td>
+
+                                    <td class="cart__update-wrapper cart-flex-item text-right">
+
+                                        <div class="cart__qty text-center">
+                                            <div class="qtyField">
+
+                                                <div class="cart__qty-input qty" type="text" name="quantity" id="@("qty"+item.FoodItemId)" value="">@item.Quantity</div>
+
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                    <td class="text-right small--hide cart-price">
+                                        <div><span class="money" id="@("bill"+@item.FoodItemId)">@item.bill </span></div>
+                                    </td>
+
+
+
+                                    <td class="text-center small--hide"><a class="btn btn--secondary cart__remove" title="Remove tem" href="@Url.Action("RemoveFromCart","Checkout",new { foodItemId=item.FoodItemId })"><i class="icon icon anm anm-times-l"></i></a></td>
+                                </tr>
+
+                            }
+                        }
+
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="text-left"><a href="/FoodItems/Index" class="btn btn-secondary btn--small cart-continue">Continue shopping</a></td>
+                            <td colspan="3" class="text-right">
+
+                                <a href="/CheckOut/Index"><input type="button" name="clear" class="btn btn-secondary btn--small  small--hide" value="Proceed to Checkout" /></a>
+
+                            </td>
+                        </tr>
+                    </tfoot>
+                </table>
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+<script>
+    $(document).ready(function () {
+
+
+
+        $("a.qtyBtn.Minus").click(function () {
+            var id = $(this).attr("data-id");
+
+            var unitPrice = $("#Price" + id).data('price');
+
+            var qty = $("#qty" + id).val();
+
+            var totalBill = qty * unitPrice;
+
+            $("#bill" + id).html(totalBill);
+
+
+
+        });
+
+        $("a.qtyBtn.plus").click(function () {
+            var id = $(this).attr("data-id");
+            console.log(id);
+            var unitPrice = $("#Price" + id).data('price');
+
+            var qty = $("#qty" + id).val();
+
+            var totalBill = qty * unitPrice;
+
+
+            $("#bill" + id).html(totalBill);
+
+
+        });
+
+
+    });
+</script>

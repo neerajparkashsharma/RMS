@@ -1,0 +1,100 @@
+﻿@model IEnumerable<RMS.Models.User>
+
+@{
+    ViewBag.Title = "All Users";
+}
+
+<style>
+    .table {
+        margin-top: 70px;
+    }
+</style>
+
+<center>
+    <h2 style="margin-top:20px; margin-bottom:30px;">ALL ACTIVE USERS </h2>
+    <h4>  @Html.ActionLink("Create new account (+)", "Create") </h4>
+
+</center>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+         
+        </th>
+        <th>
+            Name
+        </th>
+
+        <th>
+            Email
+        </th>
+
+        <th>
+            Role
+        </th>
+
+        <th>
+            Status
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+               
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Role.Name)
+            </td>
+            <td class="status">
+                @(item.IsActive == true ? "Active" : "Disabled")
+
+                @if (item.IsActive == true)
+                {
+                    <style>
+                        .status {
+                            color: green;
+                            font-weight: bold;
+                        }
+                    </style>
+                }
+                else
+                {
+                    <style>
+                        .status {
+                            color: red;
+                            font-weight: bold;
+                        }
+                    </style>
+                }
+            </td>
+            <td>
+                <div class="col-md-offset-2 col-md-12">
+                    <a href="/Users/Details/@item.Id">   <input type="button" value="View" class="btn btn-default" /></a>
+                    <a href="/Users/Edit/@item.Id">   <input type="button" value="Edit" class="btn btn-default" /></a>
+
+                    <a href="/Users/Delete/@item.Id">   <input type="button" value="Delete" class="btn btn-default" /></a>
+
+                </div>
+
+                @*@Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })*@
+            </td>
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,153 @@
+﻿@model List<RMS.Models.SelectAllPizza_Result>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+
+
+
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/style.css" rel="stylesheet" />
+
+
+<!--New Arrivals-->
+<div class="product-rows section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="section-header text-center">
+                    <h2 class="h2">All the Pizza varieties!</h2>
+                    <p>GRAB THESE NEW DELICIOUS ITEMS!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="content" class="my-5">
+        <div id="filterbar" class="collapse">
+            <div class="box border-bottom">
+                <div class="form-group text-center">
+                    <div class="btn-group" data-toggle="buttons"> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="radio"> Reset </label> <label class="btn btn-success form-check-label active"> <input class="form-check-input" type="radio" checked> Apply </label> </div>
+                </div>
+                <div> <label class="tick">New <input type="checkbox" checked="checked"> <span class="check"></span> </label> </div>
+                <div> <label class="tick">Sale <input type="checkbox"> <span class="check"></span> </label> </div>
+            </div>
+           
+            <div class="box">
+                <div class="box-label text-uppercase d-flex align-items-center">size <button class="btn ml-auto" type="button" data-toggle="collapse" data-target="#size" aria-expanded="false" aria-controls="size"><span class="fas fa-plus"></span></button> </div>
+                <div id="size" class="collapse">
+                    <div class="btn-group d-flex align-items-center flex-wrap" data-toggle="buttons"> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="checkbox"> 80 </label> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="checkbox" checked> 92 </label> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="checkbox" checked> 102 </label> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="checkbox" checked> 104 </label> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="checkbox" checked> 106 </label> <label class="btn btn-success form-check-label"> <input class="form-check-input" type="checkbox" checked> 108 </label> </div>
+                </div>
+            </div>
+        </div>
+        <div id="products">
+            <div class="row mx-0">
+                @{ int i = 0; }
+                @foreach (var item in Model)
+                {
+                    i++;
+
+
+                    <div class="col-lg-4 col-md-6 pt-md-0 pt-3" onclick="window.location.href = '/FoodItems/Edit/@item.Id'">
+                        <div class="card d-flex flex-column align-items-center">
+                            <div class="product-name">@item.Name   (Rs. @item.Price)</div>
+
+                            <div class="card-img">
+
+                                <img src="~/Images/@Html.DisplayFor(modelItem => item.Image)" style="border-radius:10px;" />
+
+                            </div>
+
+
+
+                            <div class="d-flex align-items-center price">
+                                <div class="del mr-2"><span class="text-dark"></span></div>
+
+                                <form action="/CheckOut/Cart/@item.Id" method="post">
+                                    <div class="product-form__item--submit" style="margin-top:40px;">
+                                        <input type="submit" value="Add to Cart" name="add" class="btn product-form__cart-submit">
+
+
+                                    </div>
+                                </form>
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (i == 0)
+                {
+                    <center><h2 style="color:red">>>>> * No Active Pizzas Found! Add new One!</h2></center>
+                }
+
+            </div>
+        </div>
+    </div>
+    
+ </div>   
+    <!--End Featured Product-->
+    <!--Parallax Section-->
+    <div class="section">
+        <div class="hero hero--large hero__overlay bg-size">
+            <img class="bg-img" src="~/Content/assets/images/parallax-banners/eyeglasses_1900x990.jpg" alt="" />
+        </div>
+    </div>
+    <!--End Parallax Section-->
+    <!--For Newsletter Popup-->
+    <script>
+    jQuery(document).ready(function () {
+        jQuery('.closepopup').on('click', function () {
+            jQuery('#popup-container').fadeOut();
+            jQuery('#modalOverly').fadeOut();
+        });
+
+        var visits = jQuery.cookie('visits') || 0;
+        visits++;
+        jQuery.cookie('visits', visits, { expires: 1, path: '/' });
+        console.debug(jQuery.cookie('visits'));
+        if (jQuery.cookie('visits') > 1) {
+            jQuery('#modalOverly').hide();
+            jQuery('#popup-container').hide();
+        } else {
+            var pageHeight = jQuery(document).height();
+            jQuery('<div id="modalOverly"></div>').insertBefore('body');
+            jQuery('#modalOverly').css("height", pageHeight);
+            jQuery('#popup-container').show();
+        }
+        if (jQuery.cookie('noShowWelcome')) { jQuery('#popup-container').hide(); jQuery('#active-popup').hide(); }
+    });
+
+    jQuery(document).mouseup(function (e) {
+        var container = jQuery('#popup-container');
+        if (!container.is(e.target) && container.has(e.target).length === 0) {
+            container.fadeOut();
+            jQuery('#modalOverly').fadeIn(200);
+            jQuery('#modalOverly').hide();
+        }
+    });
+
+    /*--------------------------------------
+        Promotion / Notification Cookie Bar
+      -------------------------------------- */
+    if (Cookies.get('promotion') != 'true') {
+        $(".notification-bar").show();
+    }
+    $(".close-announcement").on('click', function () {
+        $(".notification-bar").slideUp();
+        Cookies.set('promotion', 'true', { expires: 1 });
+        return false;
+    });
+    </script>
+    <!--End For Newsletter Popup-->

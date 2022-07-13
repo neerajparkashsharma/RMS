@@ -1,0 +1,88 @@
+﻿@model IEnumerable<RMS.Models.Order>
+
+@{
+    ViewBag.Title = "All Orders";
+}
+
+<style>
+    .table {
+        margin-top: 70px;
+    }
+</style>
+
+<center>
+    <h2 style="margin-top:20px; margin-bottom:30px;">ALL ORDERS </h2>
+   
+
+</center>
+
+
+
+<table class="table">
+    <tr>
+        <th>
+
+        </th>
+        <th>
+            Order#
+        </th>
+
+        <th>
+            Order Date/Time
+        </th>
+
+        <th>
+            Order Processing By
+        </th>
+       
+        <th>
+            Total Amount
+        </th>
+
+        <th>
+            Status
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Id)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.CreatedDate)
+    </td>
+
+    <td>
+        @foreach (var i in ViewBag.Users)
+        {
+            if (i.Id == item.CreatedBy)
+            {
+                @i.Name
+
+
+            }
+            else
+            {
+             
+            }
+        }</td>
+
+        <td>
+            Rs. @Html.DisplayFor(modelItem => item.Amount)
+        </td>
+        <td class="status">
+
+            Checked-Out
+
+        </td>
+
+    </tr>
+    }
+
+</table>
